@@ -12,8 +12,15 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">{{ form_row(form.flying_hours) }}</div>
-    <div class="col-md-4">{{ form_row(form.license) }}</div>
+    {% if form.flying_hours is defined %}
+        <div class="col-md-4">{{ form_row(form.flying_hours) }}</div>
+    {% endif %}
+    {% if form.license is defined %}
+        <div class="col-md-4">{{ form_row(form.license) }}</div>
+    {% endif %}
+    {% if form.function is defined %}
+        <div class="col-md-4">{{ form_row(form.function) }}</div>
+    {% endif %}
 </div>
 
 {{ form_widget(form) }}

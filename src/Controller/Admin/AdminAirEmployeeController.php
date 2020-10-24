@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminEmployeeController extends AbstractController {
+class AdminAirEmployeeController extends AbstractController {
 
     /**
      * @var PilotRepository
@@ -37,14 +37,14 @@ class AdminEmployeeController extends AbstractController {
     }
 
     /**
-     * @Route("/admin",name="admin.employee.index")
+     * @Route("/admin/airEmployee",name="admin.airEmployee.index")
      * @return Response
      */
     public function index(): Response {
 
         $pilots = $this->pilot_repository->findAll();
         $aircrew = $this->aircrew_repository->findAll();
-        return $this->render('admin/employee/index.html.twig', [
+        return $this->render('admin/employee/airEmployee/index.html.twig', [
             'pilots' => $pilots,
             'aircrew' => $aircrew,
         ]);
@@ -65,7 +65,7 @@ class AdminEmployeeController extends AbstractController {
             $em->persist($pilot);
             $em->flush();
             $this->addFlash('success','Créé avec succès');
-            return $this->redirectToRoute('admin.employee.index');
+            return $this->redirectToRoute('admin.airEmployee.index');
         }
 
         return $this->render('admin/employee/new.html.twig', [
@@ -91,7 +91,7 @@ class AdminEmployeeController extends AbstractController {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success','Modifié avec succès');
-            return $this->redirectToRoute('admin.employee.index');
+            return $this->redirectToRoute('admin.airEmployee.index');
         }
 
         return $this->render('admin/employee/edit.html.twig', [
@@ -113,7 +113,7 @@ class AdminEmployeeController extends AbstractController {
             $em->flush();
             $this->addFlash('success','Supprimé avec succès');
         }
-        return $this->redirectToRoute('admin.employee.index');
+        return $this->redirectToRoute('admin.airEmployee.index');
     }
 
     /**
@@ -131,7 +131,7 @@ class AdminEmployeeController extends AbstractController {
             $em->persist($aircrew);
             $em->flush();
             $this->addFlash('success','Créé avec succès');
-            return $this->redirectToRoute('admin.employee.index');
+            return $this->redirectToRoute('admin.airEmployee.index');
         }
 
         return $this->render('admin/employee/new.html.twig', [
@@ -157,7 +157,7 @@ class AdminEmployeeController extends AbstractController {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             $this->addFlash('success','Modifié avec succès');
-            return $this->redirectToRoute('admin.employee.index');
+            return $this->redirectToRoute('admin.airEmployee.index');
         }
 
         return $this->render('admin/employee/edit.html.twig', [
@@ -179,7 +179,7 @@ class AdminEmployeeController extends AbstractController {
             $em->flush();
             $this->addFlash('success','Supprimé avec succès');
         }
-        return $this->redirectToRoute('admin.employee.index');
+        return $this->redirectToRoute('admin.airEmployee.index');
     }
 
 }
