@@ -62,7 +62,7 @@ class AdminAirportController extends AbstractController{
             return $this->redirectToRoute('admin.airport.index');
         }
 
-        return $this->render('admin/airport/new.html.twig', [
+        return $this->render('admin/new.html.twig', [
             'path' => $this->form_path,
             'type' => 'aéroport',
             'airport' => $airport,
@@ -89,7 +89,7 @@ class AdminAirportController extends AbstractController{
             return $this->redirectToRoute('admin.airport.index');
         }
 
-        return $this->render('admin/airport/edit.html.twig', [
+        return $this->render('admin/edit.html.twig', [
             'path' => $this->form_path,
             'airport' => $airport,
             'form' => $form->createView()

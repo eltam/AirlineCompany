@@ -24,12 +24,27 @@
                 <tr>
                     <td> {{ airport.iata }} </td>
                     <td> {{ airport.name }} </td>
+                    <td>
+                        <a href="{{ path('admin.airport.edit', {id: airport.id}) }}"
+                           class="btn btn-secondary">Editer</a>
+                        <form method="post"
+                              action="{{ path('admin.airport.delete', {id: airport.id}) }}"
+                              style="display: inline-block"
+                              onsubmit="return confirm('Etes-vous vraiment sûr de vouloir supprimer cet aéroport ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ airport.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
 
         </table>
 
+        <div class="text-right">
+            <a href="{{ path('admin.airport.new') }}" class="btn btn-primary">Ajouter un aéroport</a>
+        </div>
 
     </div>
 

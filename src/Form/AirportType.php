@@ -13,6 +13,7 @@ class AirportType extends AbstractType
     {
         $builder
             ->add('iata')
+            ->add('name')
             ->add('city')
             ->add('country')
         ;
@@ -22,6 +23,7 @@ class AirportType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Airport::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }

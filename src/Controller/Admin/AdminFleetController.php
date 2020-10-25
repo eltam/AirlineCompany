@@ -44,8 +44,8 @@ class AdminFleetController extends AbstractController {
     public function __construct(AircraftModelRepository $aircraft_model_repository, AircraftRepository $aircraft_repository) {
         $this->aircraft_model_repository = $aircraft_model_repository;
         $this->aircraft_repository = $aircraft_repository;
-        $this->model_form_path = 'admin/fleet/_aircraft_model.form.html.twig';
-        $this->aircraft_form_path = 'admin/fleet/_aircraft.form.html.twig';
+        $this->model_form_path = 'admin/fleet/aircraft_model/_form.html.twig';
+        $this->aircraft_form_path = 'admin/fleet/aircraft/_form.html.twig';
     }
 
     /**
