@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Modifier les informations</h1>
+        {{ include('admin/fleet/_aircraft.form.html.twig', {form: form, button: 'Editer'}) }}
+    </div>
+{% endblock %}
+
+

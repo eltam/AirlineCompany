@@ -3,7 +3,7 @@
 {% block body  %}
     <div class="container mt-4">
 
-        <h1>Gestion des pilotes</h1>
+        <h1>Modèles d'appareils</h1>
 
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
@@ -15,24 +15,24 @@
             <thead>
             <tr>
                 <th>Nom</th>
-                <th>Prénom</th>
+                <th>Capacité</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            {% for pilot in pilots %}
+            {% for aircraft_model in aircraft_models %}
                 <tr>
-                    <td> {{ pilot.surname }} </td>
-                    <td> {{ pilot.firstname }} </td>
+                    <td> {{ aircraft_model.name }} </td>
+                    <td> {{ aircraft_model.capacity }} </td>
                     <td>
-                        <a href="{{ path('admin.pilot.edit', {id: pilot.id}) }}"
+                        <a href="{{ path('admin.aircraft_model.edit', {id: aircraft_model.id}) }}"
                            class="btn btn-secondary">Editer</a>
                         <form method="post"
-                              action="{{ path('admin.pilot.delete', {id: pilot.id}) }}"
+                              action="{{ path('admin.aircraft_model.delete', {id: aircraft_model.id}) }}"
                               style="display: inline-block"
-                              onsubmit="return confirm('Etes-vous vraiment sûr de vouloir supprimer ce pilote ?')">
+                              onsubmit="return confirm('Etes-vous vraiment sûr de vouloir supprimer ce modèle ?')">
                             <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pilot.id) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ aircraft_model.id) }}">
                             <button class="btn btn-danger">Supprimer</button>
                         </form>
                     </td>
@@ -43,37 +43,37 @@
         </table>
 
         <div class="text-right">
-            <a href="{{ path('admin.pilot.new') }}" class="btn btn-primary">Ajouter un pilote</a>
+            <a href="{{ path('admin.aircraft_model.new') }}" class="btn btn-primary">Ajouter un modèle</a>
         </div>
 
     </div>
 
     <div class="container mt-4">
 
-        <h1>Gestion des membres d'équipage</h1>
+        <h1>Gestion de la flotte</h1>
 
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
+                <th>Immatriculation</th>
+                <th>Modèle</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            {% for member in aircrew %}
+            {% for aircraft in aircrafts %}
                 <tr>
-                    <td> {{ member.surname }} </td>
-                    <td> {{ member.firstname }} </td>
+                    <td> {{ aircraft.registrationNumber }} </td>
+                    <td> {{ aircraft.model.name }} </td>
                     <td>
-                        <a href="{{ path('admin.aircrew.edit', {id: member.id}) }}"
+                        <a href="{{ path('admin.aircraft.edit', {id: aircraft.id}) }}"
                            class="btn btn-secondary">Editer</a>
                         <form method="post"
-                              action="{{ path('admin.aircrew.delete', {id: member.id}) }}"
+                              action="{{ path('admin.aircraft.delete', {id: aircraft.id}) }}"
                               style="display: inline-block"
-                              onsubmit="return confirm('Etes-vous vraiment sûr de vouloir supprimer ce membre d\'équipage ?')">
+                              onsubmit="return confirm('Etes-vous vraiment sûr de vouloir supprimer cet appareil ?')">
                             <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ member.id) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ aircraft.id) }}">
                             <button class="btn btn-danger">Supprimer</button>
                         </form>
                     </td>
@@ -84,7 +84,7 @@
         </table>
 
         <div class="text-right">
-            <a href="{{ path('admin.aircrew.new') }}" class="btn btn-primary">Ajouter un membre d'équipage</a>
+            <a href="{{ path('admin.aircraft.new') }}" class="btn btn-primary">Ajouter un nouvel appareil</a>
         </div>
 
     </div>
