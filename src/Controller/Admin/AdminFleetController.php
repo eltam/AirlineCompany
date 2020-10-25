@@ -27,6 +27,16 @@ class AdminFleetController extends AbstractController {
     private $aircraft_repository;
 
     /**
+     * @var string
+     */
+    private $model_form_path;
+
+    /**
+     * @var string
+     */
+    private $aircraft_form_path;
+
+    /**
      * AdminFleetController constructor.
      * @param AircraftModelRepository $aircraft_model_repository
      * @param AircraftRepository $aircraft_repository
@@ -34,6 +44,8 @@ class AdminFleetController extends AbstractController {
     public function __construct(AircraftModelRepository $aircraft_model_repository, AircraftRepository $aircraft_repository) {
         $this->aircraft_model_repository = $aircraft_model_repository;
         $this->aircraft_repository = $aircraft_repository;
+        $this->model_form_path = 'admin/fleet/_aircraft_model.form.html.twig';
+        $this->aircraft_form_path = 'admin/fleet/_aircraft.form.html.twig';
     }
 
     /**
@@ -68,7 +80,9 @@ class AdminFleetController extends AbstractController {
             return $this->redirectToRoute('admin.fleet.index');
         }
 
-        return $this->render('admin/fleet/aircraft_model.new.html.twig', [
+        return $this->render('admin/new.html.twig', [
+            'path' => $this->model_form_path,
+            'type' => 'modèle',
             'aircraft_model' => $aircraft_model,
             'form' => $form->createView()
         ]);
@@ -92,7 +106,8 @@ class AdminFleetController extends AbstractController {
             return $this->redirectToRoute('admin.fleet.index');
         }
 
-        return $this->render('admin/fleet/aircraft_model.edit.html.twig', [
+        return $this->render('admin/edit.html.twig', [
+            'path' => $this->model_form_path,
             'aircraft_model' => $aircraft_model,
             'form' => $form->createView()
         ]);
@@ -132,7 +147,9 @@ class AdminFleetController extends AbstractController {
             return $this->redirectToRoute('admin.fleet.index');
         }
 
-        return $this->render('admin/fleet/aircraft.new.html.twig', [
+        return $this->render('admin/new.html.twig', [
+            'path' => $this->aircraft_form_path,
+            'type' => 'appareil',
             'aircraft' => $aircraft,
             'form' => $form->createView()
         ]);
@@ -156,7 +173,8 @@ class AdminFleetController extends AbstractController {
             return $this->redirectToRoute('admin.fleet.index');
         }
 
-        return $this->render('admin/fleet/aircraft.edit.html.twig', [
+        return $this->render('admin/edit.html.twig', [
+            'path' => $this->aircraft_form_path,
             'aircraft' => $aircraft,
             'form' => $form->createView()
         ]);

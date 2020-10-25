@@ -25,12 +25,12 @@
                     <td> {{ ground_employee.surname }} </td>
                     <td> {{ ground_employee.firstname }} </td>
                     <td>
-                        <a href="{{ path('admin.pilot.edit', {id: ground_employee.id}) }}"
+                        <a href="{{ path('admin.groundEmployee.edit', {id: ground_employee.id}) }}"
                            class="btn btn-secondary">Editer</a>
                         <form method="post"
-                              action="{{ path('admin.pilot.delete', {id: ground_employee.id}) }}"
+                              action="{{ path('admin.groundEmployee.delete', {id: ground_employee.id}) }}"
                               style="display: inline-block"
-                              onsubmit="return confirm('Etes-vous vraiment sûr de vouloir supprimer ce pilote ?')">
+                              onsubmit="return confirm('Etes-vous vraiment sûr de vouloir supprimer cet employé ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ground_employee.id) }}">
                             <button class="btn btn-danger">Supprimer</button>

@@ -27,6 +27,11 @@ class AdminAirEmployeeController extends AbstractController {
     private $aircrew_repository;
 
     /**
+     * @var string
+     */
+    private $form_path;
+
+    /**
      * AdminEmployeeController constructor.
      * @param PilotRepository $pilot_repository
      * @param AirCrewRepository $aircrew_repository
@@ -34,6 +39,7 @@ class AdminAirEmployeeController extends AbstractController {
     public function __construct(PilotRepository $pilot_repository, AirCrewRepository $aircrew_repository) {
         $this->pilot_repository = $pilot_repository;
         $this->aircrew_repository = $aircrew_repository;
+        $this->form_path = 'admin/employee/_form.html.twig';
     }
 
     /**
@@ -68,7 +74,8 @@ class AdminAirEmployeeController extends AbstractController {
             return $this->redirectToRoute('admin.airEmployee.index');
         }
 
-        return $this->render('admin/employee/new.html.twig', [
+        return $this->render('admin/new.html.twig', [
+            'path' => $this->form_path,
             'type' => 'pilote',
             'pilot' => $pilot,
             'form' => $form->createView()
@@ -94,7 +101,8 @@ class AdminAirEmployeeController extends AbstractController {
             return $this->redirectToRoute('admin.airEmployee.index');
         }
 
-        return $this->render('admin/employee/edit.html.twig', [
+        return $this->render('admin/edit.html.twig', [
+            'path' => $this->form_path,
             'pilot' => $pilot,
             'form' => $form->createView()
         ]);
@@ -134,7 +142,8 @@ class AdminAirEmployeeController extends AbstractController {
             return $this->redirectToRoute('admin.airEmployee.index');
         }
 
-        return $this->render('admin/employee/new.html.twig', [
+        return $this->render('admin/new.html.twig', [
+            'path' => $this->form_path,
             'type' => 'membre d\'équipage',
             'aircrew' => $aircrew,
             'form' => $form->createView()
@@ -160,7 +169,8 @@ class AdminAirEmployeeController extends AbstractController {
             return $this->redirectToRoute('admin.airEmployee.index');
         }
 
-        return $this->render('admin/employee/edit.html.twig', [
+        return $this->render('admin/edit.html.twig', [
+            'path' => $this->form_path,
             'aircrew' => $aircrew,
             'form' => $form->createView()
         ]);

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body  %}
+    <div class="container mt-4">
+
+        <h1>Aéroports</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Code AITA</th>
+                <th>Nom</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for airport in airports %}
+                <tr>
+                    <td> {{ airport.iata }} </td>
+                    <td> {{ airport.name }} </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+
+    </div>
+
+{% endblock %}

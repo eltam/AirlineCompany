@@ -19,11 +19,17 @@ class AdminGroundEmployeeController extends AbstractController {
     private $groundEmployeeRepository;
 
     /**
+     * @var string
+     */
+    private $form_path;
+
+    /**
      * AdminGroundEmployeeController constructor.
      * @param GroundEmployeeRepository $groundEmployeeRepository
      */
     public function __construct(GroundEmployeeRepository $groundEmployeeRepository) {
         $this->groundEmployeeRepository = $groundEmployeeRepository;
+        $this->form_path = 'admin/employee/_form.html.twig';
     }
 
     /**
@@ -56,8 +62,9 @@ class AdminGroundEmployeeController extends AbstractController {
             return $this->redirectToRoute('admin.groundEmployee.index');
         }
 
-        return $this->render('admin/employee/new.html.twig', [
-            'type' => 'personnel au sol',
+        return $this->render('admin/new.html.twig', [
+            'path' => $this->form_path,
+            'type' => 'employé',
             'groundEmployee' => $ground_employee,
             'form' => $form->createView()
         ]);
@@ -65,7 +72,7 @@ class AdminGroundEmployeeController extends AbstractController {
     }
 
     /**
-     * @Route("/admin/pilot/{id}", name="admin.pilot.edit", methods="GET|POST")
+     * @Route("/admin/groundEmployee/{id}", name="admin.groundEmployee.edit", methods="GET|POST")
      * @param GroundEmployee $ground_employee
      * @param Request $request
      * @return RedirectResponse|Response
@@ -82,14 +89,15 @@ class AdminGroundEmployeeController extends AbstractController {
             return $this->redirectToRoute('admin.groundEmployee.index');
         }
 
-        return $this->render('admin/employee/edit.html.twig', [
+        return $this->render('admin/edit.html.twig', [
+            'path' => $this->form_path,
             'groundEmployee' => $ground_employee,
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/admin/pilot/{id}", name="admin.pilot.delete", methods="DELETE")
+     * @Route("/admin/groundEmployee/{id}", name="admin.groundEmployee.delete", methods="DELETE")
      * @param GroundEmployee $ground_employee
      * @param Request $request
      * @return RedirectResponse

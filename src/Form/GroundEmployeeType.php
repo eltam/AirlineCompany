@@ -24,6 +24,7 @@ class GroundEmployeeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => GroundEmployee::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }
