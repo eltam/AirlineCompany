@@ -3,7 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\FlightRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToOne;
 
 /**
  * @ORM\Entity(repositoryClass=FlightRepository::class)
@@ -38,19 +43,31 @@ class Flight
     private $duration;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ManyToOne(targetEntity="Airport")
+     * @JoinColumn(name="depart_airport_id", referencedColumnName="id")
      */
     private $depart_airport;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ManyToOne(targetEntity="Airport")
+     * @JoinColumn(name="arrival_airport_id", referencedColumnName="id")
      */
     private $arrival_airport;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ManyToOne(targetEntity="Aircraft")
      */
     private $aircraft;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Departure::class, mappedBy="flight")
+     */
+    private $departures;
+
+    public function __construct()
+    {
+        $this->departures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,39 +122,89 @@ class Flight
         return $this;
     }
 
-    public function getDepartAirport(): ?string
+    /**
+     * @return mixed
+     */
+    public function getDepartAirport()
     {
         return $this->depart_airport;
     }
 
-    public function setDepartAirport(string $depart_airport): self
+    /**
+     * @param mixed $depart_airport
+     * @return Flight
+     */
+    public function setDepartAirport($depart_airport)
     {
         $this->depart_airport = $depart_airport;
-
         return $this;
     }
 
-    public function getArrivalAirport(): ?string
+    /**
+     * @param mixed $arrival_airport
+     * @return Flight
+     */
+    public function setArrivalAirport($arrival_airport)
+    {
+        $this->arrival_airport = $arrival_airport;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getArrivalAirport()
     {
         return $this->arrival_airport;
     }
 
-    public function setArrivalAirport(string $arrival_airport): self
-    {
-        $this->arrival_airport = $arrival_airport;
-
-        return $this;
-    }
-
-    public function getAircraft(): ?string
+    /**
+     * @return mixed
+     */
+    public function getAircraft()
     {
         return $this->aircraft;
     }
 
-    public function setAircraft(string $aircraft): self
+    /**
+     * @param mixed $aircraft
+     * @return Flight
+     */
+    public function setAircraft($aircraft)
     {
         $this->aircraft = $aircraft;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Departure[]
+     */
+    public function getDepartures(): Collection
+    {
+        return $this->departures;
+    }
+
+    public function addDeparture(Departure $departure): self
+    {
+        if (!$this->departures->contains($departure)) {
+            $this->departures[] = $departure;
+            $departure->setFlight($this);
+        }
 
         return $this;
     }
+
+    public function removeDeparture(Departure $departure): self
+    {
+        if ($this->departures->contains($departure)) {
+            $this->departures->removeElement($departure);
+            // set the owning side to null (unless already changed)
+            if ($departure->getFlight() === $this) {
+                $departure->setFlight(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body  %}
+    <div class="container mt-4">
+
+        <h1>Clients</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Adresse</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td> {{ client.surname }} </td>
+                    <td> {{ client.firstname }} </td>
+                    <td> {{ client.address }} </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+{% endblock %}

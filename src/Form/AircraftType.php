@@ -29,7 +29,7 @@ class AircraftType extends AbstractType
         $builder
             ->add('registration_number')
             ->add('model', ChoiceType::class, [
-                'choices' => $this->getChoices()
+                'choices' => $this->getModelChoices()
             ])
         ;
     }
@@ -42,7 +42,7 @@ class AircraftType extends AbstractType
         ]);
     }
 
-    public function getChoices() {
+    public function getModelChoices() {
         $choices = [];
         $aircraft_models = $this->aircraft_model_repository->findAll();
         foreach ($aircraft_models as $aircraft_model) {

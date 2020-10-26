@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\AirCrew;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +19,9 @@ class AircrewType extends AbstractType
             ->add('address')
             ->add('salary')
             ->add('flying_hours')
-            ->add('function')
+            ->add('function', ChoiceType::class, [
+                'choices' => $this->getFunctionChoices()
+            ])
         ;
     }
 
@@ -28,5 +31,15 @@ class AircrewType extends AbstractType
             'data_class' => AirCrew::class,
             'translation_domain' => 'forms'
         ]);
+    }
+
+    public function getFunctionChoices()
+    {
+        $choices = AirCrew::FUNCTION;
+        $output = [];
+        foreach ($choices as $k => $value) {
+            $output[$value] = $k;
+        }
+        return $output;
     }
 }

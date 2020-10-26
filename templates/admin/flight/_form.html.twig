@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+
+<div class="row">
+    <div class="col-md-4">{{ form_row(form.start_validity) }}</div>
+    <div class="col-md-4">{{ form_row(form.end_validity) }}</div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">{{ form_row(form.depart_day) }}</div>
+    <div class="col-md-4">{{ form_row(form.duration) }}</div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">{{ form_row(form.depart_airport) }}</div>
+    <div class="col-md-4">{{ form_row(form.arrival_airport) }}</div>
+    <div class="col-md-4">{{ form_row(form.aircraft) }}</div>
+</div>
+
+{{ form_widget(form) }}
+<button class="btn btn-primary">{{ button | default('Enregistrer') }}</button>
+{{ form_end(form) }}
+

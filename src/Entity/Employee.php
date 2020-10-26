@@ -77,6 +77,11 @@ class Employee {
         return $this;
     }
 
+    public function getFullname()
+    {
+        return $this->surname . " " . $this->firstname;
+    }
+
     /**
      * @return mixed
      */

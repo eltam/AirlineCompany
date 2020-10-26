@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body  %}
+    <div class="container mt-4">
+
+        <h1>Vols</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Numéro</th>
+                <th>Départ</th>
+                <th>Arrivée</th>
+                <th>Appareil</th>
+                <th>Jour</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for flight in flights %}
+                <tr>
+                    <td> {{ flight.id }} </td>
+                    <td> {{ flight.departAirport.iata }} </td>
+                    <td> {{ flight.arrivalAirport.iata }} </td>
+                    <td> {{ flight.aircraft.registrationNumber }} </td>
+                    <td> {{ flight.departDay }} </td>
+                    <td>
+                        <a href="{{ path('admin.flight.edit', {id: flight.id}) }}"
+                           class="btn btn-secondary">Editer</a>
+                        <form method="post"
+                              action="{{ path('admin.flight.delete', {id: flight.id}) }}"
+                              style="display: inline-block"
+                              onsubmit="return confirm('Etes-vous vraiment sûr de vouloir supprimer ce vol ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ flight.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+        <div class="text-right">
+            <a href="{{ path('admin.flight.new') }}" class="btn btn-primary">Ajouter un vol</a>
+        </div>
+
+    </div>
+
+{% endblock %}
