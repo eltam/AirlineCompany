@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AirportRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AirportRepository::class)
@@ -19,6 +20,7 @@ class Airport
 
     /**
      * @ORM\Column(type="string", length=3)
+     * @Assert\Regex(pattern="/^[A-Z]{3}$/")
      */
     private $iata;
 

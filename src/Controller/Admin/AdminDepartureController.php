@@ -3,8 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Departure;
+use App\Entity\Flight;
 use App\Form\DepartureType;
 use App\Repository\DepartureRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,12 +47,32 @@ class AdminDepartureController extends AbstractController{
     }
 
     /**
-     * @Route("/admin/departure/create", name="admin.departure.new")
+     * @Route("/admin/flight/{id}/departure/create", name="admin.departure.new")
      * @param Request $request
+     * @param Flight $flight
      * @return Response
      */
-    public function new(Request $request):Response {
+    public function new(Flight $flight, Request $request):Response {
         $departure = new Departure();
+
+        $departure->setFlight($flight);
+        $departure->setPassengers("0");
+
+        # We will find the last departure for this flight and set the new departure date on next week
+        # If there is no previous departure, we will set the date on the next departure week day
+        $latest_departure = $this->departure_repository->findLatestByFlight($flight);
+        if(isset($latest_departure)) {
+            $departure_date = $latest_departure->getDepartureDate();
+            $departure_date->modify('+7 day');
+        }
+        else {
+            $departure_week_day = $flight->getDepartDay();
+            $departure_date = new DateTime();
+            $departure_date->modify('next '.$departure_week_day);
+        }
+
+        $departure->setDepartureDate($departure_date);
+
         $form = $this->createForm(DepartureType::class, $departure);
         $form->handleRequest($request);
 
@@ -64,7 +86,8 @@ class AdminDepartureController extends AbstractController{
 
         return $this->render('admin/new.html.twig', [
             'path' => $this->form_path,
-            'type' => 'départ',
+            'type' => 'départ pour le vol '.$flight->getId(),
+            'date_depart' => $departure_date->format('d/m/Y'),
             'departure' => $departure,
             'form' => $form->createView()
         ]);

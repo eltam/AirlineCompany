@@ -29,10 +29,12 @@
                     <td> {{ flight.departAirport.iata }} </td>
                     <td> {{ flight.arrivalAirport.iata }} </td>
                     <td> {{ flight.aircraft.registrationNumber }} </td>
-                    <td> {{ flight.departDay }} </td>
+                    <td> {{ flight.departDayTranslated }} </td>
                     <td>
                         <a href="{{ path('admin.flight.edit', {id: flight.id}) }}"
                            class="btn btn-secondary">Editer</a>
+                        <a href="{{ path('admin.departure.new', {id: flight.id}) }}"
+                           class="btn btn-primary">Ajouter le prochain départ</a>
                         <form method="post"
                               action="{{ path('admin.flight.delete', {id: flight.id}) }}"
                               style="display: inline-block"

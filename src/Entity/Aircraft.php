@@ -6,6 +6,7 @@ use App\Repository\AircraftRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AircraftRepository", repositoryClass=AircraftRepository::class)
@@ -21,6 +22,7 @@ class Aircraft
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(pattern="/^\d{10}$/")
      */
     private $registration_number;
 

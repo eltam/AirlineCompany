@@ -36,9 +36,9 @@ class FlightType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('start_validity')
-            ->add('end_validity')
-            ->add('depart_day')
+            ->add('depart_day', ChoiceType::class, [
+                'choices' => $this->getWeekDayChoices()
+            ])
             ->add('duration')
             ->add('depart_airport', ChoiceType::class, [
                 'choices' => $this->getAirportChoices()
@@ -56,6 +56,7 @@ class FlightType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Flight::class,
+            'translation_domain' => 'forms'
         ]);
     }
 
@@ -74,6 +75,18 @@ class FlightType extends AbstractType
         foreach ($aircrafts as $aircraft) {
             $choices[$aircraft->getRegistrationNumber()] = $aircraft;
         }
+        return $choices;
+    }
+
+    public function getWeekDayChoices() {
+        $choices = [];
+        $choices["Lundi"] = "monday";
+        $choices["Mardi"] = "tuesday";
+        $choices["Mercredi"] = "wednesday";
+        $choices["Jeudi"] = "thurday";
+        $choices["Vendredi"] = "friday";
+        $choices["Samedi"] = "saturday";
+        $choices["Dimanche"] = "sunday";
         return $choices;
     }
 

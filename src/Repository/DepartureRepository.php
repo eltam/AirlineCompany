@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Departure;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Types\DateType;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,16 @@ class DepartureRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Departure::class);
+    }
+
+    public function findLatestByFlight($flight): ?Departure
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.flight = :flight')->setParameter('flight', $flight)
+            ->orderBy('d.departure_date', 'DESC')
+            ->setMaxResults( 1 )
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     // /**

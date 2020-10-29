@@ -3,6 +3,11 @@
 {% block body %}
     <div class="container mt-4">
         <h1>Ajouter un {{ type }}</h1>
+        {% if date_depart is defined %}
+            <br />
+            <h2>Départ prévu le {{ date_depart }}</h2>
+            <br />
+        {% endif %}
         {{ include(path, {form: form, button: 'Créer'}) }}
     </div>
 {% endblock %}

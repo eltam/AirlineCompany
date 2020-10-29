@@ -23,16 +23,6 @@ class Flight
     private $id;
 
     /**
-     * @ORM\Column(type="date")
-     */
-    private $start_validity;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $end_validity;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $depart_day;
@@ -74,33 +64,29 @@ class Flight
         return $this->id;
     }
 
-    public function getStartValidity(): ?\DateTimeInterface
-    {
-        return $this->start_validity;
-    }
-
-    public function setStartValidity(\DateTimeInterface $start_validity): self
-    {
-        $this->start_validity = $start_validity;
-
-        return $this;
-    }
-
-    public function getEndValidity(): ?\DateTimeInterface
-    {
-        return $this->end_validity;
-    }
-
-    public function setEndValidity(?\DateTimeInterface $end_validity): self
-    {
-        $this->end_validity = $end_validity;
-
-        return $this;
-    }
-
     public function getDepartDay(): ?string
     {
         return $this->depart_day;
+    }
+
+    public function getDepartDayTranslated(): ?string
+    {
+        switch ($this->depart_day) {
+            case "monday":
+                return "Lundi";
+            case "tuesday":
+                return "Mardi";
+            case "wednesday":
+                return "Mercredi";
+            case "thursday":
+                return "Jeudi";
+            case "friday":
+                return "Vendredi";
+            case "saturday":
+                return "Samedi";
+            case "sunday":
+                return "Dimanche";
+        }
     }
 
     public function setDepartDay(string $depart_day): self

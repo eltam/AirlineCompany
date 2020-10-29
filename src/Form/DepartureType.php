@@ -6,6 +6,7 @@ use App\Entity\Departure;
 use App\Repository\AirCrewRepository;
 use App\Repository\FlightRepository;
 use App\Repository\PilotRepository;
+use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,6 +30,7 @@ class DepartureType extends AbstractType
      */
     private $flight_repository;
 
+
     public function __construct(PilotRepository $pilot_repository, FlightRepository $flight_repository, AirCrewRepository $aircrew_repository) {
         $this->pilot_repository = $pilot_repository;
         $this->flight_repository = $flight_repository;
@@ -38,10 +40,6 @@ class DepartureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('departure_date')
-            ->add('flight', ChoiceType::class, [
-                'choices' => $this->getFlightChoices()
-            ])
             ->add('pilot', ChoiceType::class, [
                 'choices' => $this->getPilotChoices()
             ])
@@ -72,15 +70,6 @@ class DepartureType extends AbstractType
         $pilots = $this->pilot_repository->findAll();
         foreach ($pilots as $pilot) {
             $choices[$pilot->getFullname()] = $pilot;
-        }
-        return $choices;
-    }
-
-    public function getFlightChoices() {
-        $choices = [];
-        $flights = $this->flight_repository->findAll();
-        foreach ($flights as $flight) {
-            $choices[$flight->getId()] = $flight;
         }
         return $choices;
     }

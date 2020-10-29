@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\MappedSuperclass()
  */
 
 class Employee {
-    /** @ORM\Column(type="string") */
+    /** @ORM\Column(type="string")
+     * @Assert\Regex(pattern="/^\d{15}$/")
+     */
     private $num_secu;
 
     /** @ORM\Column(type="string") */

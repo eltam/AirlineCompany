@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\AircraftModelRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AircraftModelRepository::class)
@@ -30,6 +31,7 @@ class AircraftModel
 
     /**
      * @ORM\Column(type="integer", options={"default" : 1})
+     * @Assert\Range(max=2, min=1)
      */
     private $piloting;
 
