@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\DepartureRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,6 +53,11 @@ class Departure
      * @ORM\Column(type="integer")
      */
     private $passengers;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $price;
 
     public function getId(): ?int
     {
@@ -121,6 +124,13 @@ class Departure
         return $this;
     }
 
+    public function getAvailablePlaces(): ?int
+    {
+        return $this->flight->getAircraft()->getModel()->getCapacity() - $this->passengers;
+    }
+
+
+
     /**
      * @return mixed
      */
@@ -154,6 +164,18 @@ class Departure
     public function setCrew($crew)
     {
         $this->crew = $crew;
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
+
         return $this;
     }
 }

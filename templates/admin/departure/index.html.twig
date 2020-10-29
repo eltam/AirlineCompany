@@ -17,6 +17,7 @@
                 <th>Date de départ</th>
                 <th>Numéro de Vol</th>
                 <th>Passagers</th>
+                <th>Prix du billet</th>
             </tr>
             </thead>
             <tbody>
@@ -25,6 +26,7 @@
                     <td> {{ departure.departureDate|date('d/m/Y') }} </td>
                     <td> {{ departure.flight.id }} </td>
                     <td> {{ departure.passengers }} </td>
+                    <td> {{ departure.price }} </td>
                     <td>
                         <a href="{{ path('admin.departure.edit', {id: departure.id}) }}"
                            class="btn btn-secondary">Editer</a>

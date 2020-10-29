@@ -4,5 +4,29 @@
     <div class="jumbotron text-center">
         <h1>Centrale Airline</h1>
     </div>
+    <div class="container">
+        <h2>Les prochains vols</h2>
+        <br />
+        {% for departure in departures %}
+            <div class="card" style="width: 75%;margin: 0 auto;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Liaison : {{ departure.flight.departAirport.iata }} ({{ departure.flight.departAirport.name }}) -> {{ departure.flight.arrivalAirport.iata }} ({{ departure.flight.arrivalAirport.name }})
+                    </h5>
+                    <h5> Départ prévu le {{ departure.departureDate.format('d/m/Y')}}</h5>
+                    <p class="card-text">
+                        {{ departure.availablePlaces() }} places disponibles
+                    </p>
+                    <div class="text-primary" style="font-weight:bold;font-size: 2rem;">
+                        {{ departure.price }} €
+                        <a style="float:right;font-size: 1.5rem;" href="#"
+                           class="btn btn-primary">Réserver</a>
+                    </div>
+
+                </div>
+            </div>
+            <br />
+        {% endfor %}
+    </div>
 
 {% endblock %}

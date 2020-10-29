@@ -54,6 +54,7 @@ class DepartureType extends AbstractType
                 'multiple' =>false,
                 'choices' => $this->getAircrewChoices()
             ])
+            ->add('price')
         ;
     }
 
