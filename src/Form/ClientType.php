@@ -12,7 +12,7 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('surname')
             ->add('firstname')
             ->add('address')
         ;
@@ -22,6 +22,7 @@ class ClientType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Client::class,
+            'translation_domain' => 'forms',
         ]);
     }
 }

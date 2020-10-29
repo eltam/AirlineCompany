@@ -19,7 +19,7 @@
                     </p>
                     <div class="text-primary" style="font-weight:bold;font-size: 2rem;">
                         {{ departure.price }} €
-                        <a style="float:right;font-size: 1.5rem;" href="#"
+                        <a style="float:right;font-size: 1.5rem;" href="{{ path('booking.new', {id: departure.id}) }}"
                            class="btn btn-primary">Réserver</a>
                     </div>
 

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Réservation</h1>
+        <br />
+        <div>
+            <h2>Vol n° {{ departure.flight.id }}</h2>
+            <h4>Appareil : {{ departure.flight.aircraft.registrationNumber }} (Modèle {{ departure.flight.aircraft.model.name }})</h4>
+            <br />
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Départ</h5>
+                    <div class="card-text">
+                        Aéroport : {{ departure.flight.departAirport.name }} ({{ departure.flight.departAirport.iata }})
+                        <p style="float: right">Date : {{ departure.departureDate.format('d/m/Y') }} </p> <br />
+                        Ville : {{ departure.flight.departAirport.city }} <br />
+                        Pays : {{ departure.flight.departAirport.country }}
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Arrivée</h5>
+                    <div class="card-text">
+                        Aéroport : {{ departure.flight.arrivalAirport.name }} ({{ departure.flight.arrivalAirport.iata }})
+                        <p style="float: right">Date : {{ departure.departureDate.format('d/m/Y') }} </p> <br />
+                        Ville : {{ departure.flight.arrivalAirport.city }} <br />
+                        Pays : {{ departure.flight.arrivalAirport.country }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <h2>Vos informations</h2>
+        {{ include(path, {form: form, button: 'Confirmer'}) }}
+    </div>
+{% endblock %}
+
+
