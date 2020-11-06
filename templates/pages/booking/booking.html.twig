@@ -4,6 +4,19 @@
     <div class="container mt-4 ">
         <h1>Réservation</h1>
         <br />
+        <h2>Vos informations</h2>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Passager</h5>
+                <div class="card-text">
+                    Nom : {{ user.surname }} <br />
+                    Prénom : {{ user.firstname }} <br />
+                    Adresse : {{ user.address }} <br />
+                    E-mail : {{ user.email }} <br />
+                </div>
+            </div>
+        </div>
+        <br />
         <div>
             <h2>Vol n° {{ departure.flight.id }}</h2>
             <h4>Appareil : {{ departure.flight.aircraft.registrationNumber }} (Modèle {{ departure.flight.aircraft.model.name }})</h4>
@@ -29,20 +42,6 @@
                         Ville : {{ departure.flight.arrivalAirport.city }} <br />
                         Pays : {{ departure.flight.arrivalAirport.country }}
                     </div>
-                </div>
-            </div>
-        </div>
-        <br />
-
-        <h2>Vos informations</h2>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Passager</h5>
-                <div class="card-text">
-                    Nom : {{ user.surname }} <br />
-                    Prénom : {{ user.firstname }} <br />
-                    Adresse : {{ user.address }} <br />
-                    E-mail : {{ user.email }} <br />
                 </div>
             </div>
         </div>
