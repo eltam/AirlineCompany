@@ -1,0 +1,10 @@
+{% extends 'layout-pdf.html.twig' %}
+
+{% block content %}
+    <p>This is the PDF content.</p>
+
+    <figure>
+        <img src="{{ absolute_url(asset('images/chimay.jpg')) }}" alt="">
+        <figcaption>A picture with an absolute URL</figcaption>
+    </figure>
+{% endblock %}

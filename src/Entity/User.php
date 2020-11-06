@@ -41,7 +41,7 @@ class User implements UserInterface
     private $address;
 
     /**
-     * @ORM\OneToMany(targetEntity=Ticket::class, mappedBy="client")
+     * @ORM\OneToMany(targetEntity=Ticket::class, mappedBy="user")
      */
     private $tickets;
 
