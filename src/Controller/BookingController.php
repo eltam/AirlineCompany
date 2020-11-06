@@ -3,10 +3,7 @@
 
 namespace App\Controller;
 
-
-use App\Entity\Client;
 use App\Entity\Departure;
-use App\Form\ClientType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +18,7 @@ class BookingController extends AbstractController
     private $form_path;
 
     public function __construct() {
-        $this->form_path = 'pages/_form.html.twig';
+        $this->form_path = 'pages/booking/_form.html.twig';
     }
 
     /**
@@ -31,22 +28,12 @@ class BookingController extends AbstractController
      * @return Response
      */
     public function new(Departure $departure, Request $request):Response {
-        $client = new Client();
-        $form = $this->createForm(ClientType::class, $client);
-        $form->handleRequest($request);
+        $user = $this->getUser();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($client);
-            $em->flush();
-            return $this->redirectToRoute('home');
-        }
-
-        return $this->render('pages/booking.html.twig', [
+        return $this->render('pages/booking/booking.html.twig', [
             'path' => $this->form_path,
             'departure' => $departure,
-            'client' => $client,
-            'form' => $form->createView()
+            'user' => $user,
         ]);
 
     }

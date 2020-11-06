@@ -20,11 +20,11 @@
             </tr>
             </thead>
             <tbody>
-            {% for client in clients %}
+            {% for user in users %}
                 <tr>
-                    <td> {{ client.surname }} </td>
-                    <td> {{ client.firstname }} </td>
-                    <td> {{ client.address }} </td>
+                    <td> {{ user.surname }} </td>
+                    <td> {{ user.firstname }} </td>
+                    <td> {{ user.address }} </td>
                 </tr>
             {% endfor %}
             </tbody>

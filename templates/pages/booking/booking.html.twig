@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container mt-4">
+    <div class="container mt-4 ">
         <h1>Réservation</h1>
         <br />
         <div>
@@ -35,7 +35,23 @@
         <br />
 
         <h2>Vos informations</h2>
-        {{ include(path, {form: form, button: 'Confirmer'}) }}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Passager</h5>
+                <div class="card-text">
+                    Nom : {{ user.surname }} <br />
+                    Prénom : {{ user.firstname }} <br />
+                    Adresse : {{ user.address }} <br />
+                    E-mail : {{ user.email }} <br />
+                </div>
+            </div>
+        </div>
+        <br />
+        <a style="float:right;font-size: 1.5rem;" href="{{ path('ticket.new', {
+            departure_id: departure.id,
+            user_id: user.id
+        }) }}"
+           class="btn btn-primary">Confirmer la réservation</a>
     </div>
 {% endblock %}
 

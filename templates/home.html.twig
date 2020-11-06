@@ -19,8 +19,15 @@
                     </p>
                     <div class="text-primary" style="font-weight:bold;font-size: 2rem;">
                         {{ departure.price }} €
-                        <a style="float:right;font-size: 1.5rem;" href="{{ path('booking.new', {id: departure.id}) }}"
-                           class="btn btn-primary">Réserver</a>
+                        {% if is_granted('ROLE_USER') %}
+                            <a style="float:right;font-size: 1.5rem;" href="{{ path('booking.new', {id: departure.id}) }}"
+                               class="btn btn-primary">Réserver</a>
+                        {% else %}
+                            <a style="float:right;font-size: 1.5rem;" href="{{ path('app_login', {id: departure.id}) }}"
+                               class="btn btn-primary">Réserver</a>
+                        {% endif %}
+
+
                     </div>
 
                 </div>

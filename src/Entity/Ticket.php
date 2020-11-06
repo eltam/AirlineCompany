@@ -29,10 +29,14 @@ class Ticket
     private $departure;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="tickets")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tickets")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $client;
+    private $user;
+
+    public function __construct() {
+        $this->issue_date = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -63,14 +67,14 @@ class Ticket
         return $this;
     }
 
-    public function getClient(): ?Client
+    public function getUser(): ?User
     {
-        return $this->client;
+        return $this->user;
     }
 
-    public function setClient(?Client $client): self
+    public function setUser(?User $user): self
     {
-        $this->client = $client;
+        $this->user = $user;
 
         return $this;
     }

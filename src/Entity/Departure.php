@@ -124,6 +124,13 @@ class Departure
         return $this;
     }
 
+    public function addOnePassenger(): self
+    {
+        $this->passengers += 1;
+
+        return $this;
+    }
+
     public function getAvailablePlaces(): ?int
     {
         return $this->flight->getAircraft()->getModel()->getCapacity() - $this->passengers;
