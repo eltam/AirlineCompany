@@ -54,6 +54,11 @@ class Flight
      */
     private $departures;
 
+    /**
+     * @ORM\Column(type="time")
+     */
+    private $depart_time;
+
     public function __construct()
     {
         $this->departures = new ArrayCollection();
@@ -191,6 +196,23 @@ class Flight
         }
 
         return $this;
+    }
+
+    public function getDepartTime(): ?\DateTimeInterface
+    {
+        return $this->depart_time;
+    }
+
+    public function setDepartTime(\DateTimeInterface $depart_time): self
+    {
+        $this->depart_time = $depart_time;
+        return $this;
+    }
+
+    public function getArrivalTime(): ?\DateTimeInterface
+    {
+        $depart_time = $this->depart_time;
+        return $depart_time->modify('+'.$this->duration.' hours');
     }
 
 }

@@ -185,4 +185,11 @@ class Departure
 
         return $this;
     }
+
+    public function getArrivalDate(): ?\DateTimeInterface
+    {
+        $total_time = (int) ($this->flight->getDepartTime()->format('H')) + $this->flight->getDuration();
+        $extra_days = (int) ($total_time / 24);
+        return $this->departure_date->modify('+'.$extra_days.' days');
+    }
 }

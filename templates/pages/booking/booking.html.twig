@@ -23,10 +23,9 @@
             <br />
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Départ</h5>
+                    <h5 class="card-title">Départ : {{ departure.departureDate.format('d/m/Y') }} à {{ departure.flight.DepartTime.format('H:i') }}</h5>
                     <div class="card-text">
                         Aéroport : {{ departure.flight.departAirport.name }} ({{ departure.flight.departAirport.iata }})
-                        <p style="float: right">Date : {{ departure.departureDate.format('d/m/Y') }} </p> <br />
                         Ville : {{ departure.flight.departAirport.city }} <br />
                         Pays : {{ departure.flight.departAirport.country }}
                     </div>
@@ -35,10 +34,9 @@
             <br />
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Arrivée</h5>
+                    <h5 class="card-title">Arrivée : {{ departure.getArrivalDate.format('d/m/Y') }} à {{ departure.flight.getArrivalTime.format('H:i') }}</h5>
                     <div class="card-text">
                         Aéroport : {{ departure.flight.arrivalAirport.name }} ({{ departure.flight.arrivalAirport.iata }})
-                        <p style="float: right">Date : {{ departure.departureDate.format('d/m/Y') }} </p> <br />
                         Ville : {{ departure.flight.arrivalAirport.city }} <br />
                         Pays : {{ departure.flight.arrivalAirport.country }}
                     </div>

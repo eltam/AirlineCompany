@@ -19,6 +19,7 @@
                 <th>Arrivée</th>
                 <th>Appareil</th>
                 <th>Jour</th>
+                <th>Heure</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -30,6 +31,7 @@
                     <td> {{ flight.arrivalAirport.iata }} </td>
                     <td> {{ flight.aircraft.registrationNumber }} </td>
                     <td> {{ flight.departDayTranslated }} </td>
+                    <td> {{ flight.departTime.format('H:i') }} </td>
                     <td>
                         <a href="{{ path('admin.flight.edit', {id: flight.id}) }}"
                            class="btn btn-secondary">Editer</a>

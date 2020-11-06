@@ -13,7 +13,7 @@
                     <h5 class="card-title">
                         Liaison : {{ departure.flight.departAirport.iata }} ({{ departure.flight.departAirport.name }}) -> {{ departure.flight.arrivalAirport.iata }} ({{ departure.flight.arrivalAirport.name }})
                     </h5>
-                    <h5> Départ prévu le {{ departure.departureDate.format('d/m/Y')}}</h5>
+                    <h5> Départ prévu le {{ departure.departureDate.format('d/m/Y')}} à {{ departure.flight.DepartTime.format('H:i') }}</h5>
                     <p class="card-text">
                         {{ departure.availablePlaces() }} places disponibles
                     </p>

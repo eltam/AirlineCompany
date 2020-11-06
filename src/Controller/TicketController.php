@@ -58,7 +58,8 @@ class TicketController extends AbstractController
      * @param Departure $departure
      * @return Response
      */
-    public function new(User $user, Departure $departure) {
+    public function new(User $user, Departure $departure)
+    {
         $ticket = new Ticket();
         $ticket->setUser($user)->setDeparture($departure);
         $em = $this->getDoctrine()->getManager();
@@ -69,12 +70,25 @@ class TicketController extends AbstractController
 
         $em->flush();
 
+        return $this->render('\pages\booking\ticket.html.twig', [
+            'user' => $user,
+            'ticket' => $ticket,
+        ]);
+    }
+
+
+    /**
+     * @Route("/{id}/ticket/show", name="ticket.show")
+     * @param Ticket $ticket
+     * @return Response
+     */
+    public function showTicket(Ticket $ticket) {
         $path = $this->kernel->getProjectDir();
         $snappy = new Pdf($path.'\vendor\wemersonjanuario\wkhtmltopdf-windows\bin\64bit\wkhtmltopdf');
-        //$snappy->generateFromHtml('<h1>Bill</h1><p>You owe me money, dude.</p>', '/tmp/bill-125.pdf');
-        $filename = sprintf('test-%s.pdf', date('Y-m-d'));
+        $filename = sprintf($ticket->getId().'-'.$ticket->getUser()->getSurname().'-billet-%s.pdf', date('Y-m-d'));
+        // $snappy->getOutputFromHtml('<h1>Bill</h1><p>You owe me money, dude.</p>')
         return new Response(
-            $snappy->getOutputFromHtml('<h1>Bill</h1><p>You owe me money, dude.</p>'),
+            $snappy->getOutputFromHtml($this->render('\pages\ticket\ticket.html.twig', ['ticket' => $ticket])),
             200,
             [
                 'Content-Type'        => 'application/pdf',

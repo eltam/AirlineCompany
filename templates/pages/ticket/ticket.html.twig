@@ -1,10 +1,41 @@
-{% extends 'layout-pdf.html.twig' %}
+<!DOCTYPE html>
+<html>
 
-{% block content %}
-    <p>This is the PDF content.</p>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
 
-    <figure>
-        <img src="{{ absolute_url(asset('images/chimay.jpg')) }}" alt="">
-        <figcaption>A picture with an absolute URL</figcaption>
-    </figure>
-{% endblock %}
+    <h1>Billet passager pour le vol n° {{ ticket.departure.flight.id }}</h1>
+    <br />
+    <p>
+        Numéro de billet : {{ ticket.id }} <br />
+        Date d'émission : {{ ticket.issueDate.format('d/m/Y H:i') }}
+
+    </p>
+    <br />
+    <h2>Informations du passager</h2>
+    <p>
+        Nom : {{ ticket.user.surname }} <br />
+        Prénom : {{ ticket.user.firstname }} <br />
+        Adresse : {{ ticket.user.address }} <br />
+        E-mail : {{ ticket.user.email }} <br />
+    </p>
+    <br />
+    <h2>Information du vol</h2>
+    <h4>Appareil : {{ ticket.departure.flight.aircraft.registrationNumber }} (Modèle {{ ticket.departure.flight.aircraft.model.name }})</h4>
+    <h3>Départ : {{ ticket.departure.departureDate.format('d/m/Y') }} à {{ ticket.departure.flight.DepartTime.format('H:i') }}</h3>
+    <p>
+        Aéroport : {{ ticket.departure.flight.departAirport.name }} ({{ ticket.departure.flight.departAirport.iata }}) <br />
+        Ville : {{ ticket.departure.flight.departAirport.city }} <br />
+        Pays : {{ ticket.departure.flight.departAirport.country }}
+    </p>
+    <br />
+    <h3>Arrivée : {{ ticket.departure.getArrivalDate.format('d/m/Y') }} à {{ ticket.departure.flight.getArrivalTime.format('H:i') }}</h3>
+    <p>
+        Aéroport : {{ ticket.departure.flight.arrivalAirport.name }} ({{ ticket.departure.flight.arrivalAirport.iata }}) <br />
+        Ville : {{ ticket.departure.flight.arrivalAirport.city }} <br />
+        Pays : {{ ticket.departure.flight.arrivalAirport.country }}
+    </p>
+</body>
+</html>

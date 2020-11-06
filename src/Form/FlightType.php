@@ -39,6 +39,7 @@ class FlightType extends AbstractType
             ->add('depart_day', ChoiceType::class, [
                 'choices' => $this->getWeekDayChoices()
             ])
+            ->add('depart_time')
             ->add('duration')
             ->add('depart_airport', ChoiceType::class, [
                 'choices' => $this->getAirportChoices()

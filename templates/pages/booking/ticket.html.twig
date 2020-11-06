@@ -1,8 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Bon bah voilà, essayons</h1>
-    <a href='{{ path }}'>Lien vers le pdf</a>
+<div class="container mt-4 ">
+    <h1> Réservation confirmée </h1>
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"> Nous vous remercions {{ user.firstname }} pour votre confiance. Votre réservation a bien été enregistrée.</h5>
+            <div class="card-text">
+                Vous devez télécharger et <b>conserver soigneusement</b> votre billet jusqu'à l'embarquement :
+                <a href="{{ path('ticket.show', {id: ticket.id}) }}" target="_blank">billet à télécharger</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 
