@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Devenez client pour réserver un vol</h1>
+        {{ include(path, {form: form, button: 'Confirmer'}) }}
+    </div>
+{% endblock %}

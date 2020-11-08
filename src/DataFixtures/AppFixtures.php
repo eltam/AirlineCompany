@@ -25,16 +25,25 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         // Users
-        $user = new User();
-        $user->setSurname("Tambiradja")
+        $admin_user = new User();
+        $admin_user->setSurname("Smith")
+            ->setFirstname("Mary")
+            ->setAddress("5 random road, random city, random Country")
+            ->setEmail("admin@gmail.com")
+            ->setRoles(['ROLE_ADMIN']);
+        $admin_user->setPassword($this->passwordEncoder->encodePassword($admin_user, 'pQ1$Y5aa'));
+
+        $manager->persist($admin_user);
+
+        $user1 = new User();
+        $user1->setSurname("Tambiradja")
             ->setFirstname("Edouard-Louis")
             ->setAddress("39bis rue sergent michel Berthet, 69009 Lyon")
             ->setEmail("edouard.tambi@gmail.com")
-            ->setRoles(['ROLE_ADMIN']);
-        $user->setPassword($this->passwordEncoder->encodePassword($user, 'mypassword'));
+            ->setRoles(['ROLE_USER']);
+        $user1->setPassword($this->passwordEncoder->encodePassword($user1, 's6UZ7&^I'));
 
-        $manager->persist($user);
-
+        $manager->persist($user1);
 
         // Aircraft model
         $model = new AircraftModel();
