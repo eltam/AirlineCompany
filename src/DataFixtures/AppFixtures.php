@@ -139,7 +139,8 @@ class AppFixtures extends Fixture
             ->setDepartAirport($airport1)
             ->setArrivalAirport($airport2)
             ->setDepartDay("monday")
-            ->setDuration("5");
+            ->setDuration("5")
+            ->setDepartTime(new \DateTime('08:00'));
 
         $manager->persist($flight1);
 
@@ -148,7 +149,8 @@ class AppFixtures extends Fixture
             ->setDepartAirport($airport2)
             ->setArrivalAirport($airport1)
             ->setDepartDay("friday")
-            ->setDuration("5");
+            ->setDuration("5")
+            ->setDepartTime(new \DateTime('22:00'));
 
         $manager->persist($flight2);
 
