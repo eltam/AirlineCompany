@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 
+use App\Repository\TicketRepository;
 use Knp\Snappy\Pdf;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Departure;
 use App\Entity\Ticket;
@@ -26,7 +26,7 @@ class TicketController extends AbstractController
     /**
      * @var DepartureRepository
      */
-    private $repository;
+    private $departure_repository;
 
     /**
      * @var Pdf
@@ -38,14 +38,21 @@ class TicketController extends AbstractController
     private $kernel;
 
     /**
+     * @var TicketRepository
+     */
+    private $ticket_repository;
+
+    /**
      * TicketController constructor.
-     * @param DepartureRepository $repository
+     * @param TicketRepository $ticket_repository
+     * @param DepartureRepository $departure_repository
      * @param Pdf $pdf
      * @param KernelInterface $appKernel
      */
-    public function __construct(DepartureRepository $repository , Pdf $pdf, KernelInterface $appKernel) {
+    public function __construct(TicketRepository $ticket_repository, DepartureRepository $departure_repository , Pdf $pdf, KernelInterface $appKernel) {
         $this->form_path = 'pages/ticket/_form.html.twig';
-        $this->repository = $repository;
+        $this->ticket_repository = $ticket_repository;
+        $this->departure_repository = $departure_repository;
         $this->pdf = $pdf;
         $this->kernel = $appKernel;
     }
@@ -95,5 +102,17 @@ class TicketController extends AbstractController
                 'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
             ]
         );
+    }
+
+    /**
+     * @Route("/tickets/index", name="ticket.index")
+     * @return Response
+     */
+    public function getUserTickets() {
+        $user = $this->getUser();
+        $tickets = $this->ticket_repository->findByUser($user);
+        return $this->render('pages/mytickets/index.html.twig', [
+            'tickets' => $tickets
+        ]);
     }
 }

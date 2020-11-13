@@ -14,6 +14,7 @@ class AirportType extends AbstractType
         $builder
             ->add('iata')
             ->add('name')
+            ->add('destination')
             ->add('city')
             ->add('country')
         ;

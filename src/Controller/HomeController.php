@@ -14,7 +14,7 @@ class HomeController extends AbstractController {
      * @return Response
      */
     public function index(DepartureRepository $repository): Response {
-        $departures = $repository->findAll();
+        $departures = $repository->findNextFive();
         return $this->render('home.html.twig', [
             'departures' => $departures
         ]);

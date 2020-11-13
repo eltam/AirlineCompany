@@ -39,6 +39,11 @@ class Airport
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $destination;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +93,18 @@ class Airport
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDestination(): ?string
+    {
+        return $this->destination;
+    }
+
+    public function setDestination(?string $destination): self
+    {
+        $this->destination = $destination;
 
         return $this;
     }

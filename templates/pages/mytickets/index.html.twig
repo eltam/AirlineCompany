@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body  %}
+    <div class="container mt-4">
+        <h2>Mes réservations</h2>
+        <br />
+        {% for ticket in tickets %}
+            <div class="card" style="width: 75%;margin: 0 auto;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        De {{ ticket.departure.flight.departAirport.destination }} ({{ ticket.departure.flight.departAirport.iata }}) vers {{ ticket.departure.flight.arrivalAirport.destination }} ({{ ticket.departure.flight.arrivalAirport.iata }})
+                    </h5>
+                    <h5 class="card-title">
+                        Départ le {{ ticket.departure.departureDate.format('d/m/Y') }} :
+                    </h5>
+                    <div class="text-primary" style="font-weight:bold;font-size: 1.5rem;">
+                        {{ ticket.departure.price }} € <br />
+                    </div>
+                    <a href="{{ path('ticket.show', {id: ticket.id}) }}" target="_blank">Voir le billet</a>
+
+                </div>
+            </div>
+            <br />
+        {% endfor %}
+    </div>
+
+{% endblock %}

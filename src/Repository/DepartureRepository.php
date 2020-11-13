@@ -30,6 +30,16 @@ class DepartureRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function findNextFive()
+    {
+        return $this->createQueryBuilder('d')
+            ->orderBy('d.departure_date', 'ASC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Departure[] Returns an array of Departure objects
     //  */
