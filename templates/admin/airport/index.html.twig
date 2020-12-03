@@ -10,12 +10,20 @@
                 {{ message }}
             </div>
         {% endfor %}
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
 
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>Code AITA</th>
                 <th>Nom</th>
+                <th>Ville</th>
+                <th>Pays</th>
+                <th>Destination</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -24,6 +32,9 @@
                 <tr>
                     <td> {{ airport.iata }} </td>
                     <td> {{ airport.name }} </td>
+                    <td> {{ airport.city }} </td>
+                    <td> {{ airport.country }} </td>
+                    <td> {{ airport.destination }} </td>
                     <td>
                         <a href="{{ path('admin.airport.edit', {id: airport.id}) }}"
                            class="btn btn-secondary">Editer</a>

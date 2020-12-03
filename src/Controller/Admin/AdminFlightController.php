@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 use App\Entity\Flight;
 use App\Form\FlightType;
 use App\Repository\FlightRepository;
+use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -107,8 +108,14 @@ class AdminFlightController extends AbstractController{
         if ($this->isCsrfTokenValid('delete' . $flight->getId(), $request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($flight);
-            $em->flush();
-            $this->addFlash('success','Supprimé avec succès');
+            try {
+                $em->flush();
+                $this->addFlash('success','Supprimé avec succès');
+            }
+            catch (Exception $e) {
+                $this->addFlash('danger',"Vous devez d'abord supprimer tous les départs associés à ce vol");
+            }
+
         }
         return $this->redirectToRoute('admin.flight.index');
     }

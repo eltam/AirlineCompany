@@ -10,21 +10,27 @@
                 {{ message }}
             </div>
         {% endfor %}
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
 
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>Date de départ</th>
-                <th>Numéro de Vol</th>
+                <th>Vol associé</th>
                 <th>Passagers</th>
                 <th>Prix du billet</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for departure in departures %}
                 <tr>
                     <td> {{ departure.departureDate|date('d/m/Y') }} </td>
-                    <td> {{ departure.flight.id }} </td>
+                    <td> {{ departure.flight.id }} : {{ departure.flight.departAirport.destination }} ({{ departure.flight.departAirport.iata }}) -> {{ departure.flight.arrivalAirport.destination }} ({{ departure.flight.arrivalAirport.iata }})</td>
                     <td> {{ departure.passengers }} </td>
                     <td> {{ departure.price }} </td>
                     <td>

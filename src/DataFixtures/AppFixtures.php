@@ -33,7 +33,7 @@ class AppFixtures extends Fixture
             ->setAddress("5 random road, random city, random Country")
             ->setEmail("admin@gmail.com")
             ->setRoles(['ROLE_ADMIN']);
-        $admin_user->setPassword($this->passwordEncoder->encodePassword($admin_user, 'pQ1$Y5aa'));
+            $admin_user->setPassword($this->passwordEncoder->encodePassword($admin_user, 'admin'));
 
         $manager->persist($admin_user);
 
@@ -43,7 +43,7 @@ class AppFixtures extends Fixture
             ->setAddress("39bis rue sergent michel Berthet, 69009 Lyon")
             ->setEmail("edouard.tambi@gmail.com")
             ->setRoles(['ROLE_USER']);
-        $user1->setPassword($this->passwordEncoder->encodePassword($user1, 's6UZ7&^I'));
+        $user1->setPassword($this->passwordEncoder->encodePassword($user1, 'user'));
 
         $manager->persist($user1);
 
@@ -166,7 +166,9 @@ class AppFixtures extends Fixture
         $pilot1->setLicense("123445")
             ->setFlyingHours(15000)
             ->setSalary(3000)
-            ->setAddress("10bis boulevard des trois têtes, 92100 Sceaux")
+            ->setStreet("10bis boulevard des trois têtes")
+            ->setCity('Sceaux')
+            ->setCountry('France')
             ->setSurname("Bertrand")
             ->setFirstname("Mendi")
             ->setNumSecu("123456789123456");
@@ -177,7 +179,9 @@ class AppFixtures extends Fixture
         $pilot2->setLicense("213513")
             ->setFlyingHours(10000)
             ->setSalary(3000)
-            ->setAddress("10 avenue Gambetta, 75005 Paris")
+            ->setStreet("10 avenue Gambetta")
+            ->setCity('Paris')
+            ->setCountry('France')
             ->setSurname("Dupont")
             ->setFirstname("Martin")
             ->setNumSecu("223456789123456");
@@ -188,8 +192,10 @@ class AppFixtures extends Fixture
         $pilot3->setLicense("313492")
             ->setFlyingHours(23000)
             ->setSalary(4500)
-            ->setAddress("3 avenue des chevaux, 69005 Lyon")
-            ->setSurname("Jomain")
+            ->setStreet("3 avenue des chevaux")
+            ->setCity('Lyon')
+            ->setCountry('France')
+            ->setSurname("Roman")
             ->setFirstname("Alicia")
             ->setNumSecu("323456789123456");
 
@@ -199,7 +205,9 @@ class AppFixtures extends Fixture
         $pilot4->setLicense("413492")
             ->setFlyingHours(30000)
             ->setSalary(6520)
-            ->setAddress("15 avenue des Passereaux, 91000 Evry")
+            ->setStreet("15 avenue des Passereaux")
+            ->setCity('Evry')
+            ->setCountry('France')
             ->setSurname("Lilo")
             ->setFirstname("Patrick")
             ->setNumSecu("423456789123456");
@@ -209,7 +217,9 @@ class AppFixtures extends Fixture
         // Aircrew
         $crew1 = new AirCrew();
         $crew1->setSalary(4860)
-            ->setAddress("18 avenue des zèbres, 34070 Montpellier")
+            ->setStreet("18 avenue des zèbres")
+            ->setCity('Montpellier')
+            ->setCountry('France')
             ->setSurname("Lamartine")
             ->setFirstname("Christine")
             ->setNumSecu("134047512005756")
@@ -220,7 +230,9 @@ class AppFixtures extends Fixture
 
         $crew2 = new AirCrew();
         $crew2->setSalary(2560)
-            ->setAddress("1 rue de l'oignon, 91130 Ris-Orangis")
+            ->setStreet("1 rue de l'oignon")
+            ->setCity('Ris-Orangis')
+            ->setCountry('France')
             ->setSurname("Poussin")
             ->setFirstname("George")
             ->setNumSecu("25533564351351")
@@ -231,7 +243,9 @@ class AppFixtures extends Fixture
 
         $crew3 = new AirCrew();
         $crew3->setSalary(2060)
-            ->setAddress("5 rue des colombes, 74540 Alby-sur-Chéran")
+            ->setStreet("5 rue des colombes")
+            ->setCity('Alby-sur-Chéran')
+            ->setCountry('France')
             ->setSurname("Kate")
             ->setFirstname("Isabella")
             ->setNumSecu("65478964351351")
@@ -242,7 +256,9 @@ class AppFixtures extends Fixture
 
         $crew4 = new AirCrew();
         $crew4->setSalary(2060)
-            ->setAddress("64 boulevard des pots, 75003 Paris")
+            ->setStreet("64 boulevard des pots")
+            ->setCity('Paris')
+            ->setCountry('France')
             ->setSurname("Montrouge")
             ->setFirstname("Léa")
             ->setNumSecu("98712364351351")
@@ -272,7 +288,7 @@ class AppFixtures extends Fixture
         $departure1_1->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot1)
-            ->setPilot($pilot2)
+            ->setCopilot($pilot2)
             ->setPurser($crew1)
             ->setCrew($crew2)
             ->setPrice('450');
@@ -288,7 +304,7 @@ class AppFixtures extends Fixture
         $departure1_2->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot1)
-            ->setPilot($pilot2)
+            ->setCopilot($pilot2)
             ->setPurser($crew1)
             ->setCrew($crew2)
             ->setPrice('450');
@@ -313,7 +329,7 @@ class AppFixtures extends Fixture
         $departure2_1->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot1)
-            ->setPilot($pilot2)
+            ->setCopilot($pilot2)
             ->setPurser($crew1)
             ->setCrew($crew2)
             ->setPrice('450');
@@ -329,7 +345,7 @@ class AppFixtures extends Fixture
         $departure2_2->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot1)
-            ->setPilot($pilot2)
+            ->setCopilot($pilot2)
             ->setPurser($crew1)
             ->setCrew($crew2)
             ->setPrice('450');
@@ -354,7 +370,7 @@ class AppFixtures extends Fixture
         $departure3_1->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot3)
-            ->setPilot($pilot4)
+            ->setCopilot($pilot4)
             ->setPurser($crew3)
             ->setCrew($crew4)
             ->setPrice('125');
@@ -370,7 +386,7 @@ class AppFixtures extends Fixture
         $departure3_2->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot3)
-            ->setPilot($pilot4)
+            ->setCopilot($pilot4)
             ->setPurser($crew3)
             ->setCrew($crew4)
             ->setPrice('125');
@@ -396,7 +412,7 @@ class AppFixtures extends Fixture
         $departure4_1->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot3)
-            ->setPilot($pilot4)
+            ->setCopilot($pilot4)
             ->setPurser($crew3)
             ->setCrew($crew4)
             ->setPrice('125');
@@ -412,7 +428,7 @@ class AppFixtures extends Fixture
         $departure4_2->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot3)
-            ->setPilot($pilot4)
+            ->setCopilot($pilot4)
             ->setPurser($crew3)
             ->setCrew($crew4)
             ->setPrice('125');
@@ -437,7 +453,7 @@ class AppFixtures extends Fixture
         $departure5_1->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot3)
-            ->setPilot($pilot4)
+            ->setCopilot($pilot4)
             ->setPurser($crew3)
             ->setCrew($crew4)
             ->setPrice('70');
@@ -453,7 +469,7 @@ class AppFixtures extends Fixture
         $departure5_2->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot3)
-            ->setPilot($pilot4)
+            ->setCopilot($pilot4)
             ->setPurser($crew3)
             ->setCrew($crew4)
             ->setPrice('70');
@@ -478,7 +494,7 @@ class AppFixtures extends Fixture
         $departure6_1->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot3)
-            ->setPilot($pilot4)
+            ->setCopilot($pilot4)
             ->setPurser($crew3)
             ->setCrew($crew4)
             ->setPrice('70');
@@ -494,7 +510,7 @@ class AppFixtures extends Fixture
         $departure6_2->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot3)
-            ->setPilot($pilot4)
+            ->setCopilot($pilot4)
             ->setPurser($crew3)
             ->setCrew($crew4)
             ->setPrice('70');
@@ -519,7 +535,7 @@ class AppFixtures extends Fixture
         $departure7_1->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot1)
-            ->setPilot($pilot2)
+            ->setCopilot($pilot2)
             ->setPurser($crew1)
             ->setCrew($crew2)
             ->setPrice('95');
@@ -535,7 +551,7 @@ class AppFixtures extends Fixture
         $departure7_2->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot1)
-            ->setPilot($pilot2)
+            ->setCopilot($pilot2)
             ->setPurser($crew1)
             ->setCrew($crew2)
             ->setPrice('95');
@@ -561,7 +577,7 @@ class AppFixtures extends Fixture
         $departure8_1->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot1)
-            ->setPilot($pilot2)
+            ->setCopilot($pilot2)
             ->setPurser($crew1)
             ->setCrew($crew2)
             ->setPrice('95');
@@ -577,7 +593,7 @@ class AppFixtures extends Fixture
         $departure8_2->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot1)
-            ->setPilot($pilot2)
+            ->setCopilot($pilot2)
             ->setPurser($crew1)
             ->setCrew($crew2)
             ->setPrice('95');
@@ -602,7 +618,7 @@ class AppFixtures extends Fixture
         $departure9_1->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot3)
-            ->setPilot($pilot4)
+            ->setCopilot($pilot4)
             ->setPurser($crew3)
             ->setCrew($crew4)
             ->setPrice('65');
@@ -618,7 +634,7 @@ class AppFixtures extends Fixture
         $departure9_2->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot3)
-            ->setPilot($pilot4)
+            ->setCopilot($pilot4)
             ->setPurser($crew3)
             ->setCrew($crew4)
             ->setPrice('65');
@@ -643,7 +659,7 @@ class AppFixtures extends Fixture
         $departure10_1->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot3)
-            ->setPilot($pilot4)
+            ->setCopilot($pilot4)
             ->setPurser($crew3)
             ->setCrew($crew4)
             ->setPrice('65');
@@ -659,7 +675,7 @@ class AppFixtures extends Fixture
         $departure10_2->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot3)
-            ->setPilot($pilot4)
+            ->setCopilot($pilot4)
             ->setPurser($crew3)
             ->setCrew($crew4)
             ->setPrice('65');
@@ -684,7 +700,7 @@ class AppFixtures extends Fixture
         $departure11_1->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot1)
-            ->setPilot($pilot2)
+            ->setCopilot($pilot2)
             ->setPurser($crew1)
             ->setCrew($crew2)
             ->setPrice('230');
@@ -700,7 +716,7 @@ class AppFixtures extends Fixture
         $departure11_2->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot1)
-            ->setPilot($pilot2)
+            ->setCopilot($pilot2)
             ->setPurser($crew1)
             ->setCrew($crew2)
             ->setPrice('230');
@@ -725,7 +741,7 @@ class AppFixtures extends Fixture
         $departure12_1->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot1)
-            ->setPilot($pilot2)
+            ->setCopilot($pilot2)
             ->setPurser($crew1)
             ->setCrew($crew2)
             ->setPrice('230');
@@ -741,7 +757,7 @@ class AppFixtures extends Fixture
         $departure12_2->setDepartureDate($departure_date)
             ->setPassengers(0)
             ->setPilot($pilot1)
-            ->setPilot($pilot2)
+            ->setCopilot($pilot2)
             ->setPurser($crew1)
             ->setCrew($crew2)
             ->setPrice('230');

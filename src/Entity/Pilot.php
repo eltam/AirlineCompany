@@ -29,11 +29,29 @@ class Pilot extends AirEmployee
     /**
      * @ORM\OneToMany(targetEntity=Departure::class, mappedBy="pilot")
      */
+    private $departures1;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Departure::class, mappedBy="copilot")
+     */
+    private $departures2;
+
     private $departures;
 
     public function __construct()
     {
-        $this->departures = new ArrayCollection();
+        if (isset($this->departures1) and isset($this->departures2)) {
+            $this->departures = new ArrayCollection(
+                array_merge($this->departures1->toArray(), $this->departures2->toArray())
+            );
+        }
+        else if (isset($this->departures1)) {
+            $this->departures = new ArrayCollection($this->departures1->toArray());
+        }
+        else if (isset($this->departures2)) {
+            $this->departures = new ArrayCollection($this->departures2->toArray());
+        }
+
     }
 
     public function getId(): ?int

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body  %}
+    <div class="container mt-4">
+
+        <h1>Statistiques</h1>
+        <br />
+        <div>
+            <p>Nombre d'utilisateurs enregistrés : {{ total_clients }}</p>
+            <p>Nombre de réservations / Nombre de places sur les prochains vols : {{ total_tickets_next_departures }} / {{ total_places_next_departures }}</p>
+            <p>Pourcentage de remplissage actuel : {{ fill_percentage }} %</p>
+        </div>
+    </div>
+
+{% endblock %}

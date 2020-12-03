@@ -8,6 +8,7 @@ use App\Form\AircraftModelType;
 use App\Form\AircraftType;
 use App\Repository\AircraftModelRepository;
 use App\Repository\AircraftRepository;
+use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -123,8 +124,13 @@ class AdminFleetController extends AbstractController {
         if ($this->isCsrfTokenValid('delete' . $aircraft_model->getId(), $request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($aircraft_model);
-            $em->flush();
-            $this->addFlash('success','Supprimé avec succès');
+            try {
+                $em->flush();
+                $this->addFlash('success','Supprimé avec succès');
+            }
+            catch (Exception $e) {
+                $this->addFlash('danger',"Vous ne pouvez pas supprimer ce modèle car il définit des appareils de la flotte");
+            }
         }
         return $this->redirectToRoute('admin.fleet.index');
     }
@@ -190,8 +196,13 @@ class AdminFleetController extends AbstractController {
         if ($this->isCsrfTokenValid('delete' . $aircraft->getId(), $request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($aircraft);
-            $em->flush();
-            $this->addFlash('success','Supprimé avec succès');
+            try {
+                $em->flush();
+                $this->addFlash('success','Supprimé avec succès');
+            }
+            catch (Exception $e) {
+                $this->addFlash('danger',"Vous ne pouvez pas supprimer cet appareil car il assure des vols prévus");
+            }
         }
         return $this->redirectToRoute('admin.fleet.index');
     }

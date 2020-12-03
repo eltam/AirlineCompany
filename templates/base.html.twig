@@ -16,39 +16,46 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link"  href="#">Réserver un vol</a>
+                <a class="nav-link"  href="{{ path('booking.index') }}">Réserver un vol</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="{{ path('ticket.index') }}">Mes réservations</a>
-            </li>
+            {% if is_granted('ROLE_USER') %}
+                <li class="nav-item">
+                    <a class="nav-link"  href="{{ path('ticket.index') }}">Mes réservations</a>
+                </li>
+            {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
-            <li class="nav-item">
-                <a class="nav-link"  href="{{ path('admin.airEmployee.index') }}">Personnel navigant</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="{{ path('admin.groundEmployee.index') }}">Personnel au sol</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="{{ path('admin.fleet.index') }}">Flotte</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="{{ path('admin.airport.index') }}">Aéroports</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="{{ path('admin.flight.index') }}">Vols</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="{{ path('admin.departure.index') }}">Départs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="{{ path('admin.user.index') }}">Clients</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="{{ path('admin.airEmployee.index') }}">Personnel navigant</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="{{ path('admin.groundEmployee.index') }}">Personnel au sol</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="{{ path('admin.fleet.index') }}">Flotte</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="{{ path('admin.airport.index') }}">Aéroports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="{{ path('admin.flight.index') }}">Vols</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="{{ path('admin.departure.index') }}">Départs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="{{ path('admin.user.index') }}">Clients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="{{ path('admin.statistics.index') }}">Statistiques</a>
+                </li>
             {% endif %}
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        {% if is_granted('ROLE_USER') %}
+            <span class="navbar-brand">Bonjour {{ app.user.firstname }} !</span>
+            <a class="navbar-brand"  href="{{ path('app_logout') }}">Déconnexion</a>
+        {% else %}
+            <a class="navbar-brand"  href="{{ path('app_login') }}">Se connecter</a>
+        {% endif %}
     </div>
 </nav>
 {% block body %}{% endblock %}

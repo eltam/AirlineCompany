@@ -8,6 +8,7 @@ use App\Form\AircrewType;
 use App\Form\PilotType;
 use App\Repository\AirCrewRepository;
 use App\Repository\PilotRepository;
+use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -118,8 +119,13 @@ class AdminAirEmployeeController extends AbstractController {
         if ($this->isCsrfTokenValid('delete' . $pilot->getId(), $request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($pilot);
-            $em->flush();
-            $this->addFlash('success','Supprimé avec succès');
+            try {
+                $em->flush();
+                $this->addFlash('success','Supprimé avec succès');
+            }
+            catch (Exception $e) {
+                $this->addFlash('danger',"Vous ne pouvez pas supprimer ce pilote car il assure des vols prévus");
+            }
         }
         return $this->redirectToRoute('admin.airEmployee.index');
     }
@@ -186,8 +192,13 @@ class AdminAirEmployeeController extends AbstractController {
         if ($this->isCsrfTokenValid('delete' . $aircrew->getId(), $request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($aircrew);
-            $em->flush();
-            $this->addFlash('success','Supprimé avec succès');
+            try {
+                $em->flush();
+                $this->addFlash('success','Supprimé avec succès');
+            }
+            catch (Exception $e) {
+                $this->addFlash('danger',"Vous ne pouvez pas supprimer ce membre d'équipage car il assure des vols prévus");
+            }
         }
         return $this->redirectToRoute('admin.airEmployee.index');
     }

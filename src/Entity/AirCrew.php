@@ -32,13 +32,30 @@ class AirCrew extends AirEmployee
     private $function;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Departure::class, mappedBy="crew")
+     * @ORM\OneToMany(targetEntity=Departure::class, mappedBy="purser")
      */
+    private $departures1;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Departure::class, mappedBy="crew")
+     */
+    private $departures2;
+
     private $departures;
 
     public function __construct()
     {
-        $this->departures = new ArrayCollection();
+        if (isset($this->departures1) and isset($this->departures2)) {
+            $this->departures = new ArrayCollection(
+                array_merge($this->departures1->toArray(), $this->departures2->toArray())
+            );
+        }
+        else if (isset($this->departures1)) {
+            $this->departures = new ArrayCollection($this->departures1->toArray());
+        }
+        else if (isset($this->departures2)) {
+            $this->departures = new ArrayCollection($this->departures2->toArray());
+        }
     }
 
     public function getId(): ?int
@@ -49,6 +66,11 @@ class AirCrew extends AirEmployee
     public function getFunction(): ?string
     {
         return $this->function;
+    }
+
+    public function getFunctionName(): ?string
+    {
+        return self::FUNCTION[$this->function];
     }
 
     public function setFunction(string $function): self
@@ -69,7 +91,7 @@ class AirCrew extends AirEmployee
     {
         if (!$this->departures->contains($departure)) {
             $this->departures[] = $departure;
-            $departure->addCrew($this);
+            $departure->setCrew($this);
         }
 
         return $this;
@@ -79,7 +101,10 @@ class AirCrew extends AirEmployee
     {
         if ($this->departures->contains($departure)) {
             $this->departures->removeElement($departure);
-            $departure->removeCrew($this);
+            // set the owning side to null (unless already changed)
+            if ($departure->getCrew() === $this) {
+                $departure->setCrew(null);
+            }
         }
 
         return $this;

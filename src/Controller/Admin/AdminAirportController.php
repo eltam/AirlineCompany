@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Airport;
 use App\Form\AirportType;
 use App\Repository\AirportRepository;
+use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -106,8 +107,13 @@ class AdminAirportController extends AbstractController{
         if ($this->isCsrfTokenValid('delete' . $airport->getId(), $request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($airport);
-            $em->flush();
-            $this->addFlash('success','Supprimé avec succès');
+            try {
+                $em->flush();
+                $this->addFlash('success','Supprimé avec succès');
+            }
+            catch (Exception $e) {
+                $this->addFlash('danger',"Vous ne pouvez pas supprimer cet aéroport car il est desservi par des vols");
+            }
         }
         return $this->redirectToRoute('admin.airport.index');
     }

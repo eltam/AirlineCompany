@@ -21,7 +21,13 @@ class Employee {
     private $firstname;
 
     /** @ORM\Column(type="string") */
-    private $address;
+    private $street;
+
+    /** @ORM\Column(type="string") */
+    private $city;
+
+    /** @ORM\Column(type="string") */
+    private $country;
 
     /** @ORM\Column(type="integer") */
     private $salary;
@@ -88,24 +94,6 @@ class Employee {
     /**
      * @return mixed
      */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param mixed $address
-     * @return Employee
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getSalary()
     {
         return $this->salary;
@@ -118,6 +106,60 @@ class Employee {
     public function setSalary($salary)
     {
         $this->salary = $salary;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * @param mixed $street
+     * @return Employee
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     * @return Employee
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     * @return Employee
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
         return $this;
     }
 

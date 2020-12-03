@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body  %}
+    <div class="jumbotron text-center">
+        <h1>Centrale Airline</h1>
+    </div>
+    <div class="container" style="max-width: 1500px">
+        <h2>Les prochains vols</h2>
+        <br />
+        <div class="row" style="display: flex">
+            <div class="column" style="flex: 50%">
+                <h3> Vols nationaux</h3>
+                {% for departure in departures %}
+                    {% if not (departure.flight.departAirport.Country != "France" or departure.flight.arrivalAirport.Country != "France") %}
+                        {{ include('departure.html.twig', {departure: departure}) }}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="column" style="flex: 50%">
+                <h3> Vols internationaux</h3>
+                {% for departure in departures %}
+                    {% if departure.flight.departAirport.Country != "France" or departure.flight.arrivalAirport.Country != "France" %}
+                        {{ include('departure.html.twig', {departure: departure}) }}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <br />
+    </div>
+
+{% endblock %}

@@ -7,6 +7,7 @@ use App\Entity\Flight;
 use App\Form\DepartureType;
 use App\Repository\DepartureRepository;
 use DateTime;
+use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -129,8 +130,13 @@ class AdminDepartureController extends AbstractController{
         if ($this->isCsrfTokenValid('delete' . $departure->getId(), $request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($departure);
-            $em->flush();
-            $this->addFlash('success','Supprimé avec succès');
+            try {
+                $em->flush();
+                $this->addFlash('success','Supprimé avec succès');
+            }
+            catch (Exception $e) {
+                $this->addFlash('danger',"Vous ne pouvez pas supprimer ce départ car des places ont déjà été reservées");
+            }
         }
         return $this->redirectToRoute('admin.departure.index');
     }

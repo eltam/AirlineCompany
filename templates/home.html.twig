@@ -8,31 +8,7 @@
         <h2>Les prochains vols</h2>
         <br />
         {% for departure in departures %}
-            <div class="card" style="width: 75%;margin: 0 auto;">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        Liaison : {{ departure.flight.departAirport.iata }} ({{ departure.flight.departAirport.name }}) -> {{ departure.flight.arrivalAirport.iata }} ({{ departure.flight.arrivalAirport.name }})
-                    </h5>
-                    <h5> Départ prévu le {{ departure.departureDate.format('d/m/Y')}} à {{ departure.flight.DepartTime.format('H:i') }}</h5>
-                    <p class="card-text">
-                        {{ departure.availablePlaces() }} places disponibles
-                    </p>
-                    <div class="text-primary" style="font-weight:bold;font-size: 2rem;">
-                        {{ departure.price }} €
-                        {% if is_granted('ROLE_USER') %}
-                            <a style="float:right;font-size: 1.5rem;" href="{{ path('booking.new', {id: departure.id}) }}"
-                               class="btn btn-primary">Réserver</a>
-                        {% else %}
-                            <a style="float:right;font-size: 1.5rem;" href="{{ path('app_login', {id: departure.id}) }}"
-                               class="btn btn-primary">Réserver</a>
-                        {% endif %}
-
-
-                    </div>
-
-                </div>
-            </div>
-            <br />
+            {{ include('departure.html.twig', {departure: departure}) }}
         {% endfor %}
     </div>
 

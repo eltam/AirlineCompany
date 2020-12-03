@@ -19,6 +19,10 @@ class TicketRepository extends ServiceEntityRepository
         parent::__construct($registry, Ticket::class);
     }
 
+    /**
+     * @param $user
+     * @return int|mixed|string
+     */
     public function findByUser($user)
     {
         return $this->createQueryBuilder('t')
@@ -28,6 +32,16 @@ class TicketRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    public function findNextCount()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->leftJoin('t.departure', 'd')
+            ->where('d.departure_date > CURRENT_DATE()')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     // /**

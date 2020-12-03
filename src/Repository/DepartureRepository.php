@@ -33,12 +33,23 @@ class DepartureRepository extends ServiceEntityRepository
     public function findNextFive()
     {
         return $this->createQueryBuilder('d')
+            ->where('d.departure_date > CURRENT_DATE()')
             ->orderBy('d.departure_date', 'ASC')
             ->setMaxResults(5)
             ->getQuery()
             ->getResult()
             ;
     }
+
+    public function findAllNext()
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.departure_date > CURRENT_DATE()')
+            ->orderBy('d.departure_date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 
     // /**
     //  * @return Departure[] Returns an array of Departure objects

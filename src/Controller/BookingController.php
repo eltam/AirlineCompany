@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\Departure;
+use App\Repository\DepartureRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +20,18 @@ class BookingController extends AbstractController
 
     public function __construct() {
         $this->form_path = 'pages/booking/_form.html.twig';
+    }
+
+    /**
+     * @Route("/booking/index", name="booking.index")
+     * @param DepartureRepository $repository
+     * @return Response
+     */
+    public function index(DepartureRepository $repository): Response {
+        $departures = $repository->findAllNext();
+        return $this->render('pages/booking/index.html.twig', [
+            'departures' => $departures
+        ]);
     }
 
     /**

@@ -16,7 +16,9 @@ class AircrewType extends AbstractType
             ->add('num_secu')
             ->add('surname')
             ->add('firstname')
-            ->add('address')
+            ->add('street')
+            ->add('city')
+            ->add('country')
             ->add('salary')
             ->add('flying_hours')
             ->add('function', ChoiceType::class, [

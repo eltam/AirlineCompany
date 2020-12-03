@@ -14,14 +14,18 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th>Numéro de sécu</th>
                 <th>Nom</th>
                 <th>Prénom</th>
+                <th>Actions</th>
+                <
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for ground_employee in ground_employees %}
                 <tr>
+                    <td> {{ ground_employee.numSecu }} </td>
                     <td> {{ ground_employee.surname }} </td>
                     <td> {{ ground_employee.firstname }} </td>
                     <td>

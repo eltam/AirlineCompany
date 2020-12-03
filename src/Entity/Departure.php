@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DepartureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DepartureRepository::class)
@@ -29,23 +30,40 @@ class Departure
     private $departure_date;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Pilot::class, inversedBy="departures")
+     * @Assert\IsTrue(message = "Le pilote et le copilote ne peuvent pas être la même personne")
+     */
+    public function isPilotEqualCopilot()
+    {
+        return $this->getPilot()->getId() != $this->getCopilot()->getId();
+    }
+    /**
+     * @ORM\ManyToOne(targetEntity=Pilot::class, inversedBy="departures1")
      * @ORM\JoinColumn(nullable=false)
      */
     private $pilot;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Pilot::class)
+     * @ORM\ManyToOne(targetEntity=Pilot::class, inversedBy="departures2")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $copilot;
 
     /**
-     * @ORM\ManyToOne(targetEntity=AirCrew::class)
+     * @Assert\IsTrue(message = "Le chef de cabine et l'assistant de cabine ne peuvent pas être la même personne")
+     */
+    public function isPurserEqualCrew()
+    {
+        return $this->getPurser()->getId() != $this->getCrew()->getId();
+    }
+    /**
+     * @ORM\ManyToOne(targetEntity=AirCrew::class, inversedBy="departures1")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $purser;
 
     /**
-     * @ORM\ManyToOne(targetEntity=AirCrew::class)
+     * @ORM\ManyToOne(targetEntity=AirCrew::class, inversedBy="departures2")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $crew;
 

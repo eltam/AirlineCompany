@@ -3,27 +3,40 @@
 {% block body  %}
     <div class="container mt-4">
 
-        <h1>Gestion des pilotes</h1>
-
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
             </div>
         {% endfor %}
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <h1>Gestion des pilotes</h1>
+
+
 
         <table class="table table-striped">
             <thead>
             <tr>
+                <th>Numéro de sécu</th>
                 <th>Nom</th>
                 <th>Prénom</th>
+                <th>License</th>
+                <th>Heures de vol</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for pilot in pilots %}
                 <tr>
+                    <td> {{ pilot.numSecu }} </td>
                     <td> {{ pilot.surname }} </td>
                     <td> {{ pilot.firstname }} </td>
+                    <td> {{ pilot.license }} </td>
+                    <td> {{ pilot.flyingHours }} </td>
                     <td>
                         <a href="{{ path('admin.pilot.edit', {id: pilot.id}) }}"
                            class="btn btn-secondary">Editer</a>
@@ -55,16 +68,22 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th>Numéro de sécu</th>
                 <th>Nom</th>
                 <th>Prénom</th>
+                <th>Fonction</th>
+                <th>Heures de vol</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for member in aircrew %}
                 <tr>
+                    <td> {{ member.numSecu }} </td>
                     <td> {{ member.surname }} </td>
                     <td> {{ member.firstname }} </td>
+                    <td> {{ member.functionName }} </td>
+                    <td> {{ member.flyingHours }} </td>
                     <td>
                         <a href="{{ path('admin.aircrew.edit', {id: member.id}) }}"
                            class="btn btn-secondary">Editer</a>
