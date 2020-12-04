@@ -29,21 +29,21 @@ class AppFixtures extends Fixture
         // Users
         $admin_user = new User();
         $admin_user->setSurname("Smith")
-            ->setFirstname("Mary")
+            ->setFirstname("Admin")
             ->setAddress("5 random road, random city, random Country")
             ->setEmail("admin@gmail.com")
             ->setRoles(['ROLE_ADMIN']);
-            $admin_user->setPassword($this->passwordEncoder->encodePassword($admin_user, 'admin'));
+            $admin_user->setPassword($this->passwordEncoder->encodePassword($admin_user, 'adminpassword'));
 
         $manager->persist($admin_user);
 
         $user1 = new User();
-        $user1->setSurname("Tambiradja")
-            ->setFirstname("Edouard-Louis")
-            ->setAddress("39bis rue sergent michel Berthet, 69009 Lyon")
-            ->setEmail("edouard.tambi@gmail.com")
+        $user1->setSurname("Johnson")
+            ->setFirstname("User")
+            ->setAddress("25 random road, random city, random Country")
+            ->setEmail("user@gmail.com")
             ->setRoles(['ROLE_USER']);
-        $user1->setPassword($this->passwordEncoder->encodePassword($user1, 'user'));
+        $user1->setPassword($this->passwordEncoder->encodePassword($user1, 'userpassword'));
 
         $manager->persist($user1);
 
@@ -286,7 +286,7 @@ class AppFixtures extends Fixture
         $departure_date = new DateTime();
         $departure_date->modify('next '.$flight1->getDepartDay());
         $departure1_1->setDepartureDate($departure_date)
-            ->setPassengers(0)
+            ->setPassengers(180)
             ->setPilot($pilot1)
             ->setCopilot($pilot2)
             ->setPurser($crew1)
@@ -302,7 +302,7 @@ class AppFixtures extends Fixture
         $departure_date->modify('next '.$flight1->getDepartDay());
         $departure_date->modify('+7 day');
         $departure1_2->setDepartureDate($departure_date)
-            ->setPassengers(0)
+            ->setPassengers(180)
             ->setPilot($pilot1)
             ->setCopilot($pilot2)
             ->setPurser($crew1)
@@ -384,7 +384,7 @@ class AppFixtures extends Fixture
         $departure_date->modify('next '.$flight3->getDepartDay());
         $departure_date->modify('+7 day');
         $departure3_2->setDepartureDate($departure_date)
-            ->setPassengers(0)
+            ->setPassengers(180)
             ->setPilot($pilot3)
             ->setCopilot($pilot4)
             ->setPurser($crew3)
