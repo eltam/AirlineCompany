@@ -8,6 +8,7 @@ use App\Entity\AirCrew;
 use App\Entity\Airport;
 use App\Entity\Departure;
 use App\Entity\Flight;
+use App\Entity\GroundEmployee;
 use App\Entity\Pilot;
 use App\Entity\User;
 use DateTime;
@@ -235,7 +236,7 @@ class AppFixtures extends Fixture
             ->setCountry('France')
             ->setSurname("Poussin")
             ->setFirstname("George")
-            ->setNumSecu("25533564351351")
+            ->setNumSecu("255335643513512")
             ->setFlyingHours(31500)
             ->setFunction("1");
 
@@ -248,7 +249,7 @@ class AppFixtures extends Fixture
             ->setCountry('France')
             ->setSurname("Kate")
             ->setFirstname("Isabella")
-            ->setNumSecu("65478964351351")
+            ->setNumSecu("654789643513511")
             ->setFlyingHours(10500)
             ->setFunction("0");
 
@@ -261,11 +262,33 @@ class AppFixtures extends Fixture
             ->setCountry('France')
             ->setSurname("Montrouge")
             ->setFirstname("Léa")
-            ->setNumSecu("98712364351351")
+            ->setNumSecu("987123643513512")
             ->setFlyingHours(10500)
             ->setFunction("2");
 
         $manager->persist($crew4);
+
+        $ground_employee1 = new GroundEmployee();
+        $ground_employee1->setSalary(1500)
+            ->setStreet("35 rue des poissons")
+            ->setCity('Nantes')
+            ->setCountry('France')
+            ->setSurname("Delavande")
+            ->setFirstname("Louis")
+            ->setNumSecu("357125543513551");
+
+        $manager->persist($ground_employee1);
+
+        $ground_employee2 = new GroundEmployee();
+        $ground_employee2->setSalary(1500)
+            ->setStreet("3 avenue des ruches")
+            ->setCity('Brest')
+            ->setCountry('France')
+            ->setSurname("Rock")
+            ->setFirstname("Yahn")
+            ->setNumSecu("257135543514851");
+
+        $manager->persist($ground_employee2);
 
 
         // Flights and departures
